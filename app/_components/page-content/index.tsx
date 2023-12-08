@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import { EmojiCount } from "../emoji-count"
 import { EmojiForm } from "../emoji-form"
+import { EmojiGrid } from "../emoji-grid"
 
 interface PageContentProps extends React.PropsWithChildren {
   prompt?: string
@@ -17,7 +18,7 @@ export const PageContent = ({ children, prompt }: PageContentProps) => {
 
         <div className="max-w-md space-y-4 w-full animate-in fade-in slide-in-from-bottom-4 duration-1200 ease-in-out">
           <EmojiForm initialPrompt={prompt} />
-          {/* {children} */}
+          {children}
         </div>
       </div>
 

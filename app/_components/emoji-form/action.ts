@@ -3,7 +3,7 @@
 import { nanoid } from "@/app/lib/utils"
 import { replicate } from "@/app/server/replicate"
 // import { nanoid } from "@/lib/utils"
-import { prisma } from "@/app/server/db"
+// import { prisma } from "@/app/server/db"
 // import { replicate } from "@/server/replicate"
 import { Ratelimit } from "@upstash/ratelimit"
 import { kv } from "@vercel/kv"
@@ -40,21 +40,21 @@ export async function createEmoji(prevFormState: FormState | undefined, formData
   const id = nanoid()
 
   try {
-    const verified = await jwtVerify(token ?? "", new TextEncoder().encode(process.env.API_SECRET ?? ""))
-    const { ip, isIOS } = jwtSchema.parse(verified.payload)
+    // const verified = await jwtVerify(token ?? "", new TextEncoder().encode(process.env.API_SECRET ?? ""))
+    // const { ip, isIOS } = jwtSchema.parse(verified.payload)
 
-    const { remaining } = await (isIOS ? ratelimit.ios.limit(ip) : ratelimit.free.limit(ip))
-    if (remaining <= 0) return { message: "Free limit reached, download mobile app for unlimited access." }
+    // const { remaining } = await (isIOS ? ratelimit.ios.limit(ip) : ratelimit.free.limit(ip))
+    // if (remaining <= 0) return { message: "Free limit reached, download mobile app for unlimited access." }
 
     const safetyRating = await replicate.classifyPrompt({ prompt })
     const data = { id, prompt, safetyRating }
 
-    if (safetyRating >= 9) {
-      await prisma.emoji.create({ data: { ...data, isFlagged: true } })
-      return { message: "Nice try! Your prompt is inappropriate, let's keep it PG." }
-    }
+    // if (safetyRating >= 9) {
+      // await prisma.emoji.create({ data: { ...data, isFlagged: true } })
+      // return { message: "Nice try! Your prompt is inappropriate, let's keep it PG." }
+    // }
 
-    await Promise.all([prisma.emoji.create({ data }), replicate.createEmoji(data)])
+    await Promise.all([replicate.createEmoji(data)])
   } catch (error) {
     console.error(error)
     return { message: "Connection error, please refresh the page." }
