@@ -29,9 +29,9 @@ export async function EmojiGrid({ prompt }: EmojiGridProps) {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-1200 ease-in-out">
       <h2 className="font-semibold text-md text-left w-full mb-3">{!!prompt ? "Related Emojis" : "Recent Emojis"}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-items-stretch w-full">
-        {emojis.map((emoji: any) => (
+        {/* {emojis.map((emoji: any) => (
           <EmojiCard key={emoji.id} id={emoji.id} />
-        ))}
+        ))} */}
       </div>
     </div>
   )
