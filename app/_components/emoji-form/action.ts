@@ -33,6 +33,7 @@ interface FormState {
 }
 
 export async function createEmoji(prevFormState: FormState | undefined, formData: FormData): Promise<FormState | void> {
+  console.log("createEmoji")
   const prompt = (formData.get("prompt") as string | null)?.trim().replaceAll(":", "")
   const token = formData.get("token") as string | null
 

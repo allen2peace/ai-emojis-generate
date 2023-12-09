@@ -8,6 +8,7 @@ interface FaviconProps {
 }
 
 export function Favicon({ url }: FaviconProps) {
+  console.log("tago - [favicon] "+url)
   return new ImageResponse(
     (
       <div

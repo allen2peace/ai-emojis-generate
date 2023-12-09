@@ -8,6 +8,7 @@ import { redirect } from "next/navigation"
 
 export async function generateMetadata({ params }: EmojiContextProps): Promise<Metadata | undefined> {
   const data = await getEmoji(params.id)
+  console.log("tago - [p] generateMetadata "+data?.noBackgroundUrl+" "+params.id)
   if (!data) return
 
   const title = `${formatPrompt(data.prompt)} | AI Emoji Generator`
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: EmojiContextProps): Promise<M
 
 export default async function Emoji({ params }: EmojiContextProps) {
   const data = await getEmoji(params.id)
+  console.log("tago - [p] construct "+data?.noBackgroundUrl+" "+params.id)
   if (!data) redirect("/")
 
   return (

@@ -9,6 +9,7 @@ interface EmojiCardProps {
 
 export async function EmojiCard({ id, alwaysShowDownloadBtn }: EmojiCardProps) {
   const data = await getEmoji(id)
+  console.log("tago - EmojiCard " + data?.noBackgroundUrl + " " + id + " " + data)
   if (!data) return null
 
   return (

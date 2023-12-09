@@ -38,6 +38,7 @@ async function fetcher(url: string) {
 
 export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadBtn }: ButtonCard) {
   // revalidate image src every second while generating (max 1 minute)
+  console.log("tago - [ButtonCard Start] "+name+" "+id)
   const isGenerating = new Date(createdAt).getTime() > Date.now() - 60_000
   const { data, isLoading: isLoadingEmoji } = useSWR<Awaited<ReturnType<typeof fetcher>>>(
     !_src && isGenerating ? `/api/emojis/${id}` : null,
@@ -46,7 +47,7 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
       refreshInterval: (data) => (!!data?.recentSrc || !isGenerating ? 0 : 1000), // 1 second
     }
   )
-
+  console.log("tago - [ButtonCard] "+name+" "+_src+" "+data?.recentSrc)
   const [isLoadingImage, setIsLoadingImage] = useState(false)
   const [isDownloadingEmoji, setIsDownloadingEmoji] = useState(false)
 
@@ -88,11 +89,11 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
       setIsDownloadingEmoji(false)
     }
   }
-
+  console.log("tago - [ButtonCard End--] "+src+" "+EMOJI_SIZE+" "+alwaysShowDownloadBtn)
   return (
     <div
       id={id}
-      className="borders ring-1 ring-gray-200 flex flex-row flex-nowrap py-1 px-1.5 items-center shadow-sm rounded-xl gap-1.5 bg-white w-full relative group"
+      className="borders ring-1 ring-gray-200 flex flex-row flex-nowrap py-1 px-1.5 items-center shadow-sm rounded-xl gap-1.5 bg-white w-full h-fullrelative group"
     >
       {showImageTag && (
         <Image
