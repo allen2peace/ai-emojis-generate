@@ -9,14 +9,14 @@ interface EmojiCardProps {
 
 export async function EmojiCard({ id, alwaysShowDownloadBtn }: EmojiCardProps) {
   const data = await getEmoji(id)
-  // if (!data) return null
+  if (!data) return null
 
   return (
     <ButtonCard
       id={id}
-      name={"cat prompt"}
-      src={"https://aaah0mnbncqtinas.public.blob.vercel-storage.com/SG2r10222N-no-background-7RCWU29wPByCsfYGjaWWJzrW2wzICY.png"}
-      createdAt={new Date()}
+      name={formatPrompt(data.prompt)}
+      src={data.noBackgroundUrl}
+      createdAt={data.createdAt}
       alwaysShowDownloadBtn={alwaysShowDownloadBtn}
     />
   )

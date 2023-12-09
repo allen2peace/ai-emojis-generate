@@ -1,10 +1,11 @@
 import { replicate } from "@/app/server/replicate"
 import { Response, webhookSchema } from "@/app/server/utils"
-// import { prisma } from "@/server/db"
+import { prisma } from "@/app/server/db"
 import { put } from "@vercel/blob"
 
 export async function POST(req: Request) {
   try {
+    console.log("remove-bg "+req.url)
     const searchParams = new URL(req.url).searchParams
     const parsedParams = webhookSchema.safeParse(Object.fromEntries(searchParams))
     if (!parsedParams.success) return Response.invalidRequest(parsedParams.error)
@@ -14,10 +15,10 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { output, error } = body
 
-    // if (typeof error === "string") {
-    //   await prisma.emoji.update({ where: { id }, data: { isFlagged: true, error } })
-    //   return Response.success()
-    // }
+    if (typeof error === "string") {
+      await prisma.emoji.update({ where: { id }, data: { isFlagged: true, error } })
+      return Response.success()
+    }
 
     if (!output) return Response.badRequest("Missing output")
 
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
     const { url } = await put(`${id}-original.png`, file, { access: "public" })
 
     // update emoji
-    // await prisma.emoji.update({ where: { id }, data: { originalUrl: url } })
+    await prisma.emoji.update({ where: { id }, data: { originalUrl: url } })
 
     const res = await replicate.removeBackground({ id, image: output[0] })
     console.log(res)

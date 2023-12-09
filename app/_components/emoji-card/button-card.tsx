@@ -54,15 +54,15 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
   const showImageTag = !!src // don't render image tag if no src
   const showImagePlaceholder = isLoadingEmoji || isLoadingImage || !showImageTag
 
-  // useEffect(() => {
-  //   if (!showImageTag || !isLoadingImage) return
-  //   setIsLoadingImage(true)
-  // }, [isLoadingImage, showImageTag])
+  useEffect(() => {
+    if (!showImageTag || !isLoadingImage) return
+    setIsLoadingImage(true)
+  }, [isLoadingImage, showImageTag])
 
-  // useEffect(() => {
-  //   if (isLoadingEmoji || !data?.error) return
-  //   toast.error(data.error)
-  // }, [isLoadingEmoji, data?.error])
+  useEffect(() => {
+    if (isLoadingEmoji || !data?.error) return
+    toast.error(data.error)
+  }, [isLoadingEmoji, data?.error])
 
   async function handleDownload() {
     if (!src) return
