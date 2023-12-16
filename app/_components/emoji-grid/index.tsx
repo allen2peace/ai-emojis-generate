@@ -12,7 +12,7 @@ export async function EmojiGrid({ prompt }: EmojiGridProps) {
     orderBy: undefined,
     cacheStrategy: undefined,
   })
-  log("tago - [EmojiGrid] " + emojis.length + " " + prompt + " " + emojis[0])
+  log("tago - [EmojiGrid] " + emojis.length + " " + prompt + "NEXT_PUBLIC_VERCEL_URL= " + process.env.NEXT_PUBLIC_VERCEL_URL)
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-1200 ease-in-out justify-items-stretch pl-5 pr-5">
       {/* <h2 className="font-semibold text-md text-left w-full mb-3">{!!prompt ? "Related Emojis" : "Recent Emojis"}</h2> */}
