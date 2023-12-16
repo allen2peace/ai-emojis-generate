@@ -68,16 +68,22 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
   async function handleDownload() {
     if (!src) return
 
+    console.log("tago - [ButtonCard handleDownload] "+src+" "+id)
+
     track("Download Emoji")
     setIsDownloadingEmoji(true)
     const toastId = toast.loading(`Downloading :${name}:`)
 
     try {
+      console.log("tago - [ButtonCard handleDownload 22] ")
+
       const res = await fetch(src, {
         headers: new Headers({ Origin: location.origin }),
         mode: "cors",
       })
       const blob = await res.blob()
+      console.log("tago - [ButtonCard handleDownload 22] "+blob+" "+res)
+
       const blobUrl = window.URL.createObjectURL(blob)
 
       downloadBlob(blobUrl, `${name}.png`)
@@ -93,30 +99,31 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
   return (
     <div
       id={id}
-      className="borders ring-1 ring-gray-200 flex flex-row flex-nowrap py-1 px-1.5 items-center shadow-sm rounded-xl gap-1.5 bg-white w-full h-fullrelative group"
+      className="borders ring-1 ring-gray-200 flex flex-col flex-wrap py-1 px-1.5 items-center shadow-sm rounded-xl gap-1.5 bg-white w-40 h-40 relative group"
     >
+
       {showImageTag && (
         <Image
           alt="ai generated emoji"
           src={src}
           width={EMOJI_SIZE}
           height={EMOJI_SIZE}
-          className="h-8 w-8 aspect-square"
+          className="aspect-square"
           onLoadingComplete={() => setIsLoadingImage(false)}
         />
       )}
       {showImagePlaceholder && (
         <div
           aria-hidden
-          className={cn("w-8 h-8 aspect-square bg-white", showImageTag ? "absolute left-1.5" : "relative")}
+          className={cn("aspect-square bg-white", showImageTag ? "absolute left-1.5" : "relative")}
         >
           <div className="w-full h-full skeleton bg-gray-200 rounded-lg" />
         </div>
       )}
 
-      <p className="font-mono text-sm truncate" title={name}>
+      {/* <p className="font-mono text-sm truncate" title={name}>
         :{name}:
-      </p>
+      </p> */}
 
       <button
         className={cn(
@@ -131,5 +138,6 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
         {isDownloadingEmoji ? <Loader /> : <Download size={16} />}
       </button>
     </div>
+
   )
 }

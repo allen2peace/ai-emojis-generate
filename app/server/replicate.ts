@@ -15,7 +15,7 @@ export class ReplicateClient {
 
   async createEmoji({ id, prompt }: { id: string; prompt: string }) {
     // const webhook = new URL(`${SITE_URL}/api/webhook/remove-background`)
-    const webhook = new URL(`https://74f3-123-149-76-33.ngrok.io/api/webhook/remove-background`)
+    const webhook = new URL(`https://3a9d-125-46-209-69.ngrok.io/api/webhook/remove-background`)
     console.log("createEmoji webhook= "+webhook.toString())
     webhook.searchParams.set("id", id)
     webhook.searchParams.set("secret", process.env.API_SECRET as string)
@@ -38,7 +38,7 @@ export class ReplicateClient {
   async removeBackground({ id, image }: { id: string; image: string }) {
     console.log("tago - removeBackground "+id)
     // const webhook = new URL(`${SITE_URL}/api/webhook/save-emoji`)
-    const webhook = new URL(`https://74f3-123-149-76-33.ngrok.io/api/webhook/save-emoji`)
+    const webhook = new URL(`https://3a9d-125-46-209-69.ngrok.io/api/webhook/save-emoji`)
     webhook.searchParams.set("id", id)
     webhook.searchParams.set("secret", process.env.API_SECRET as string)
 

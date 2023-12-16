@@ -22,9 +22,9 @@ export const PageContent = ({ children, prompt }: PageContentProps) => {
         </div>
       </div>
 
-      {/* <Suspense>
+      <div className="items-center justify-center flex flex-col" >
         <EmojiGrid prompt={prompt} />
-      </Suspense> */}
+      </div>
     </>
   )
 }
