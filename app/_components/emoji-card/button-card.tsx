@@ -47,7 +47,6 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
       refreshInterval: (data) => (!!data?.recentSrc || !isGenerating ? 0 : 1000), // 1 second
     }
   )
-  console.log("tago - [ButtonCard] "+name+" "+_src+" "+data?.recentSrc)
   const [isLoadingImage, setIsLoadingImage] = useState(false)
   const [isDownloadingEmoji, setIsDownloadingEmoji] = useState(false)
 
@@ -75,14 +74,12 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
     const toastId = toast.loading(`Downloading :${name}:`)
 
     try {
-      console.log("tago - [ButtonCard handleDownload 22] ")
 
       const res = await fetch(src, {
         headers: new Headers({ Origin: location.origin }),
         mode: "cors",
       })
       const blob = await res.blob()
-      console.log("tago - [ButtonCard handleDownload 22] "+blob+" "+res)
 
       const blobUrl = window.URL.createObjectURL(blob)
 
@@ -95,7 +92,7 @@ export function ButtonCard({ id, name, src: _src, createdAt, alwaysShowDownloadB
       setIsDownloadingEmoji(false)
     }
   }
-  console.log("tago - [ButtonCard End--] "+src+" "+EMOJI_SIZE+" "+alwaysShowDownloadBtn)
+  console.log("tago - [ButtonCard End--] "+src)
   return (
     <div
       id={id}
